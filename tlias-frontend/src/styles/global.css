@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #303133;
+  font-size: 14px;
+}
+
+/* 通用页面容器 */
+.page-container {
+  padding: 16px;
+}
+
+/* 搜索栏 + 表格同卡片 */
+.search-card {
+  margin-bottom: 14px;
+}
+
+.search-card .el-form-item {
+  margin-bottom: 0;
+}
+
+.table-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #303133;
+  border-left: 4px solid #409eff;
+  padding-left: 10px;
+  line-height: 1.2;
+}
+
+.pagination-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.el-card {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}

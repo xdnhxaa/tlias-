@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm install（首次运行前执行）",
+      "type": "shell",
+      "command": "npm install --registry=https://registry.npmmirror.com",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "npm run build（打包到 dist）",
+      "type": "shell",
+      "command": "npm run build",
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}

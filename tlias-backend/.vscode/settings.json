@@ -1,0 +1,15 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "D:\\\\1\\\\tools\\\\jdk-21",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "D:\\\\1\\\\tools\\\\jdk-21",
+  "maven.executable.path": "D:\\\\1\\\\tools\\\\maven\\\\bin\\\\mvn.cmd",
+  "java.maven.downloadSources": true,
+  "spring-boot.ls.java.home": "D:\\\\1\\\\tools\\\\jdk-21",
+  "files.encoding": "utf8",
+  "editor.tabSize": 4
+}

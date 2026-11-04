@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: tlias-backend
+
+  # 数据源：指向本机 D:\shujuku 里的 MySQL 8.0.44
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/tlias?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+# MyBatis
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+
+# 分页插件
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+
+# 业务自定义配置
+tlias:
+  jwt:
+    # 签名密钥（生产环境应改为从环境变量读取）
+    sign-key: SVRIRUlNQQ==
+    # 过期时间：12 小时（毫秒）
+    expire: 43200000
+  upload:
+    # 文件上传保存目录（相对于程序启动目录）
+    dir: ./uploads
+
+logging:
+  level:
+    com.tlias: debug

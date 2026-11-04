@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlias.mapper.EmpMapper">
+
+    <select id="list" resultType="com.tlias.entity.Emp">
+        select e.id, e.username, e.name, e.gender, e.phone, e.job, e.salary, e.image,
+               e.entry_date, e.dept_id, e.create_time, e.update_time,
+               d.name as deptName
+        from emp e
+        left join dept d on e.dept_id = d.id
+        <where>
+            <if test="name != null and name != ''">
+                e.name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null">
+                and e.gender = #{gender}
+            </if>
+            <if test="begin != null and end != null">
+                and e.entry_date between #{begin} and #{end}
+            </if>
+        </where>
+        order by e.update_time desc
+    </select>
+
+    <select id="listAll" resultType="com.tlias.entity.Emp">
+        select e.id, e.username, e.name, e.gender, e.phone, e.job, e.salary, e.image,
+               e.entry_date, e.dept_id, d.name as deptName
+        from emp e
+        left join dept d on e.dept_id = d.id
+        order by e.id
+    </select>
+
+    <resultMap id="empWithExpr" type="com.tlias.entity.Emp" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="exprList" ofType="com.tlias.entity.EmpExpr">
+            <id column="ee_id" property="id"/>
+            <result column="ee_emp_id" property="empId"/>
+            <result column="ee_begin" property="begin"/>
+            <result column="ee_end" property="end"/>
+            <result column="ee_company" property="company"/>
+            <result column="ee_job" property="job"/>
+        </collection>
+    </resultMap>
+
+    <select id="getById" resultMap="empWithExpr">
+        select e.*, d.name as deptName,
+               ee.id        as ee_id,
+               ee.emp_id    as ee_emp_id,
+               ee.begin     as ee_begin,
+               ee.end       as ee_end,
+               ee.company   as ee_company,
+               ee.job       as ee_job
+        from emp e
+        left join dept d on e.dept_id = d.id
+        left join emp_expr ee on e.id = ee.emp_id
+        where e.id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into emp(username, password, name, gender, phone, job, salary, image,
+                        entry_date, dept_id, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image},
+                #{entryDate}, #{deptId}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="update">
+        update emp
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getByUsernameAndPassword" resultType="com.tlias.entity.Emp">
+        select id, username, name, gender, image
+        from emp
+        where username = #{username} and password = #{password}
+    </select>
+
+    <select id="countByJob" resultType="java.util.Map">
+        select (case job
+                    when 1 then '班主任'
+                    when 2 then '讲师'
+                    when 3 then '学生主管'
+                    when 4 then '教研主管'
+                    when 5 then '咨询师'
+                    else '其他' end) as pos,
+               count(*) as `sum`
+        from emp
+        group by job
+        order by job
+    </select>
+
+    <select id="countByGender" resultType="java.util.Map">
+        select if(gender = 1, '男性员工', '女性员工') as name, count(*) as value
+        from emp
+        group by gender
+        order by gender
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(*) from emp
+    </select>
+</mapper>

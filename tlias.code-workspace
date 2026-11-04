@@ -1,0 +1,63 @@
+{
+  "folders": [
+    {
+      "name": "① 后端 tlias-backend",
+      "path": "tlias-backend"
+    },
+    {
+      "name": "② 前端 tlias-frontend",
+      "path": "tlias-frontend"
+    },
+    {
+      "name": "③ 数据库脚本 sql",
+      "path": "sql"
+    },
+    {
+      "name": "④ 接口文档 docs",
+      "path": "docs"
+    },
+    {
+      "name": "⑤ 系统截图 screenshots",
+      "path": "screenshots"
+    }
+  ],
+  "settings": {
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": true,
+    "files.eol": "\n",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "explorer.compactFolders": false,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.jdt.ls.java.home": "D:\\\\1\\\\tools\\\\jdk-21",
+    "maven.executable.path": "D:\\\\1\\\\tools\\\\maven\\\\bin\\\\mvn.cmd",
+    "spring-boot.ls.java.home": "D:\\\\1\\\\tools\\\\jdk-21",
+    "[vue]": {
+      "editor.tabSize": 2
+    },
+    "[javascript]": {
+      "editor.tabSize": 2
+    },
+    "[json]": {
+      "editor.tabSize": 2
+    },
+    "[xml]": {
+      "editor.tabSize": 4
+    },
+    "[sql]": {
+      "editor.tabSize": 4
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "vscjava.vscode-java-pack",
+      "vmware.vscode-boot-dev-pack",
+      "vue.volar",
+      "dbaeumer.vscode-eslint",
+      "cweijan.vscode-mysql-client2",
+      "redhat.vscode-xml",
+      "mtxr.sqltools"
+    ]
+  }
+}

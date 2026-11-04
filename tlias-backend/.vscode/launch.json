@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "▶ 启动 tlias 后端 (8080)",
+      "request": "launch",
+      "mainClass": "com.tlias.TliasApplication",
+      "projectName": "tlias-backend",
+      "console": "internalConsole",
+      "vmArgs": "-Dfile.encoding=UTF-8 -Duser.timezone=Asia/Shanghai"
+    }
+  ]
+}

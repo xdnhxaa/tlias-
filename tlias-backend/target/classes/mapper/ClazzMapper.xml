@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlias.mapper.ClazzMapper">
+
+    <sql id="baseColumns">
+        c.id, c.name, c.room, c.begin_date, c.end_date, c.master_id, c.subject,
+        c.create_time, c.update_time,
+        e.name as masterName,
+        (case when c.begin_date &gt; now() then '未开班'
+              when now() &gt; c.end_date then '已结课'
+              else '在读中' end) as status
+    </sql>
+
+    <select id="list" resultType="com.tlias.entity.Clazz">
+        select <include refid="baseColumns"/>
+        from clazz c
+        left join emp e on c.master_id = e.id
+        <where>
+            <if test="name != null and name != ''">
+                c.name like concat('%', #{name}, '%')
+            </if>
+            <if test="begin != null and end != null">
+                and c.end_date between #{begin} and #{end}
+            </if>
+        </where>
+        order by c.update_time desc
+    </select>
+
+    <select id="listAll" resultType="com.tlias.entity.Clazz">
+        select <include refid="baseColumns"/>
+        from clazz c
+        left join emp e on c.master_id = e.id
+        order by c.id
+    </select>
+
+    <select id="getById" resultType="com.tlias.entity.Clazz">
+        select <include refid="baseColumns"/>
+        from clazz c
+        left join emp e on c.master_id = e.id
+        where c.id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into clazz(name, room, begin_date, end_date, master_id, subject, create_time, update_time)
+        values (#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="update">
+        update clazz
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="room != null and room != ''">room = #{room},</if>
+            <if test="beginDate != null">begin_date = #{beginDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="masterId != null">master_id = #{masterId},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from clazz where id = #{id}
+    </delete>
+
+    <select id="countStudentByClazz" resultType="java.util.Map">
+        select c.name as name, count(s.id) as value
+        from clazz c
+        left join student s on s.clazz_id = c.id
+        group by c.id, c.name
+        order by c.id
+    </select>
+
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(*) from clazz
+    </select>
+</mapper>
